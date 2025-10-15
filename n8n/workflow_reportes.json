@@ -1,0 +1,45 @@
+{
+  "name": "Reportes diarios - <proyecto>",
+  "nodes": [
+    {
+      "parameters": {
+        "cronExpression": "0 8 * * *"
+      },
+      "id": "cron",
+      "name": "Cron diario 8AM",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 2,
+      "position": [
+        200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://<proyecto>-backend.onrender.com/health",
+        "responseFormat": "json"
+      },
+      "id": "http",
+      "name": "Ping backend",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        460,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Cron diario 8AM": {
+      "main": [
+        [
+          {
+            "node": "Ping backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

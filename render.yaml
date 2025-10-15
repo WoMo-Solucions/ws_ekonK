@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: ${SLUG}-backend
+    runtime: docker
+    dockerfilePath: Dockerfile
+    plan: starter
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /healthz
+    autoDeploy: true
+
+  # Un-comment if this repo has a static frontend
+  # - type: web
+  #   name: ${SLUG}-frontend
+  #   runtime: docker
+  #   dockerfilePath: Dockerfile.frontend
+  #   plan: starter
+  #   autoDeploy: true
+
+  # Un-comment if this project uses n8n automations
+  # - type: web
+  #   name: ${SLUG}-n8n
+  #   runtime: image
+  #   image:
+  #     url: n8nio/n8n:latest
+  #   plan: starter
+  #   envVars:
+  #     - key: N8N_BASIC_AUTH_ACTIVE
+  #       value: "true"
+  #     - key: N8N_BASIC_AUTH_USER
+  #       value: admin
+  #     - key: N8N_BASIC_AUTH_PASSWORD
+  #       sync: false
+  #     - key: N8N_ENCRYPTION_KEY
+  #       sync: false
+  #     - key: WEBHOOK_URL
+  #       value: https://${SLUG}-n8n.onrender.com/
+  #     - key: SUPABASE_URL
+  #       sync: false
+  #     - key: SUPABASE_SERVICE_ROLE_KEY
+  #       sync: false
+  #   autoDeploy: true
